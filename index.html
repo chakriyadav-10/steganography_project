@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Steganography Lab</title>
+    <meta name="description" content="Hide secret messages in images using LSB steganography">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔒 Steganography Lab</h1>
+            <p>Multimedia Forensics - Hide & Extract Secret Messages in Images</p>
+        </header>
+
+        <div class="app-container">
+            <!-- Mode Selection -->
+            <div class="mode-selector">
+                <button class="mode-btn active" data-mode="embed">Embed Message</button>
+                <button class="mode-btn" data-mode="extract">Extract Message</button>
+            </div>
+
+            <!-- Embed Mode -->
+            <div id="embed-mode" class="mode-content active">
+                <div class="upload-section">
+                    <h3>1. Upload Cover Image</h3>
+                    <input type="file" id="cover-image" accept="image/*">
+                    <div class="image-preview" id="cover-preview">
+                        <p>No image selected</p>
+                    </div>
+                </div>
+
+                <div class="message-section">
+                    <h3>2. Enter Secret Message</h3>
+                    <textarea id="secret-message" placeholder="Type your secret message here..."></textarea>
+                    <div class="message-info">
+                        <span id="message-length">0 characters</span>
+                        <span id="message-capacity">Capacity: --</span>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>3. Settings</h3>
+                    <div class="setting-group">
+                        <label>Technique:</label>
+                        <select id="technique" disabled>
+                            <option value="lsb_basic">LSB Replacement (Recommended)</option>
+                        </select>
+                    </div>
+                    <div class="info-box">
+                        <strong>How it works:</strong> Replaces the least significant bits of pixel colors with your message data. Completely invisible to human eyes!
+                    </div>
+                </div>
+
+                <button id="embed-btn" class="action-btn">🔒 Embed Message</button>
+
+                <div id="embed-result" class="result-section hidden">
+                    <h3>✅ Success!</h3>
+                    <div class="result-info">
+                        <p><strong>PSNR:</strong> <span id="psnr-value">-</span> dB (Image Quality)</p>
+                        <p><strong>Status:</strong> <span id="embed-status">Message embedded successfully</span></p>
+                    </div>
+                    <div class="stego-preview">
+                        <h4>Stego Image (Looks identical to original):</h4>
+                        <img id="stego-image" src="" alt="Stego Image">
+                        <button id="download-btn" class="download-btn">📥 Download Stego Image</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extract Mode -->
+            <div id="extract-mode" class="mode-content">
+                <div class="upload-section">
+                    <h3>1. Upload Stego Image</h3>
+                    <input type="file" id="stego-upload" accept="image/*">
+                    <div class="image-preview" id="stego-upload-preview">
+                        <p>No image selected</p>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>2. Extraction Settings</h3>
+                    <div class="setting-group">
+                        <label>Technique:</label>
+                        <select id="extract-technique" disabled>
+                            <option value="lsb_basic">LSB Replacement</option>
+                        </select>
+                    </div>
+                    <div class="info-box">
+                        <strong>Note:</strong> Make sure this is the same image that was used for embedding.
+                    </div>
+                </div>
+
+                <button id="extract-btn" class="action-btn">🔍 Extract Message</button>
+
+                <div id="extract-result" class="result-section hidden">
+                    <h3>📨 Extracted Message</h3>
+                    <div class="extracted-message">
+                        <textarea id="extracted-text" readonly placeholder="Extracted message will appear here..."></textarea>
+                    </div>
+                    <div class="result-info">
+                        <p><strong>Status:</strong> <span id="extract-status">-</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Information -->
+        <div class="tech-info">
+            <h3>🔬 How LSB Steganography Works</h3>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>Pixel Colors</h4>
+                    <p>Each pixel has RGB values (0-255). We modify the least significant bit (last bit) of these values.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Binary Conversion</h4>
+                    <p>Your message is converted to binary and stored in the LSBs of pixel values.</p>
+                </div>
+                <div class="info-card">
+                    <h4>Invisible Changes</h4>
+                    <p>Changing the LSB alters color by ±1, which is completely invisible to human eyes.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Advanced Steganography Lab - Multimedia Forensics Project | Deployed on Netlify</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
